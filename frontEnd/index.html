@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Tráfego</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Dashboard de Tráfego</h1>
+    </header>
+
+    <main>
+        <section class="chart-container">
+            <canvas id="trafegoChart"></canvas>
+        </section>
+
+        <!-- Área para drilldown -->
+        <section id="drilldown">
+            <h2>Detalhes por protocolo (<span id="drill-client"></span>)</h2>
+            <canvas id="drillChart"></canvas>
+            <button onclick="fecharDrilldown()">Fechar</button>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
