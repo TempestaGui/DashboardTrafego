@@ -11,18 +11,17 @@
         <h1>Dashboard de Tráfego</h1>
     </header>
 
-    <main>
-        <section class="chart-container">
-            <canvas id="trafegoChart"></canvas>
-        </section>
-
-        <!-- Área para drilldown -->
-        <section id="drilldown">
-            <h2>Detalhes por protocolo (<span id="drill-client"></span>)</h2>
-            <canvas id="drillChart"></canvas>
-            <button onclick="fecharDrilldown()">Fechar</button>
-        </section>
-    </main>
+<main class="dashboard">
+    <section class="chart-container">
+        <canvas id="trafegoChart"></canvas>
+    </section>
+    <section id="drilldown" class="hidden drill-container">
+    <h2>Detalhes por protocolo (<span id="drill-client"></span>)</h2>
+    <canvas id="drillChart"></canvas>
+    <div id="protocol-legend" class="legend"></div>
+    <button onclick="fecharDrilldown()" class="close-btn">Fechar</button>
+</section>
+</main>
     <script src="app.js"></script>
 </body>
 </html>
