@@ -24,8 +24,8 @@ Opcional (mas recomendado):
 
 ### 1. Clonar o projeto
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo/backEnd
+git clone https://github.com/TempestaGui/testeTrabalhoRedes
+cd testeTrabalhoRedes/backEnd
 ```
 ### 2. Criar ambiente virtual
 ```bash
@@ -49,8 +49,8 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8001
 ## 🪟 Windows
 ### 1. Clonar o projeto
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo/backEnd
+git clone https://github.com/TempestaGui/testeTrabalhoRedes
+cd testeTrabalhoRedes/backEnd
 ```
 ### 2. Criar ambiente virtual
 ```bash
