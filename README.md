@@ -34,6 +34,7 @@ source venv/bin/activate
 ```
 ### 3. Instalar dependências
 ```bash
+cd backEnd
 pip install -r requirements.txt
 ```
 ### 4. Dar permissão para captura de pacotes
@@ -61,6 +62,7 @@ python -m venv venv
 ```
 ### 3. Instalar dependências
 ```bash
+cd backEnd
 pip install -r requirements.txt
 ```
 ### 4. Instalar WinPcap/Npcap
