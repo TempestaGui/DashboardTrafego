@@ -69,8 +69,8 @@ https://npcap.com/
 ```
 ### 5. Rodar o back-end
 ```bash
-setx SERVER_IP "192.168.0.xxx"
-setx INTERFACE "Ethernet"
+set SERVER_IP=192.168.0.xxx
+set INTERFACE=Ethernet
 uvicorn main:app --reload --host 0.0.0.0 --port 8001
 ```
 
