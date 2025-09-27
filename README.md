@@ -71,7 +71,7 @@ https://npcap.com/
 ```bash
 setx SERVER_IP "192.168.0.xxx"
 setx INTERFACE "Ethernet"
-uvicorn main:app --reload --host 127.0.0.1 --port 8001 192.168.0.132 wlxd03745886595
+uvicorn main:app --reload --host 0.0.0.0 --port 8001
 ```
 
 ## 🔎 Testando com ICMP e UDP
