@@ -165,10 +165,16 @@ def trafego_drilldown(client_ip: str):
     with _lock:
         if current_window is None:
             raise HTTPException(status_code=404, detail="Nenhuma janela ainda criada")
-        v = current_window.get(client_ip)
-        if not v:
-            raise HTTPException(status_code=404, detail="Cliente não encontrado na janela atual")
-        return {"client": client_ip, "protocols": dict(v["protocols"]), "in": v["in"], "out": v["out"]}
+        
+        # Retorna dados vazios se o cliente não existir na janela atual
+        v = current_window.get(client_ip, {"in": 0, "out": 0, "protocols": {}})
+        
+        return {
+            "client": client_ip,
+            "protocols": dict(v["protocols"]),
+            "in": v["in"],
+            "out": v["out"]
+        }
 
 # inicialização das threads
 threading.Thread(target=window_rotator, daemon=True).start()

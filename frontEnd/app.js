@@ -20,7 +20,8 @@ const protocolDescriptions = {
     HTTP: "HyperText Transfer Protocol – usado para páginas web.",
     HTTPS: "HTTP Secure – versão criptografada do HTTP.",
     DNS: "Domain Name System – resolve nomes de domínio para endereços IP.",
-    OTHER: "Outros protocolos menos comuns."
+    OTHER: "Outros protocolos menos comuns.",
+    ["Sem tráfego"]: "Nenhum tráfego registrado nesta janela de tempo."
 };
 
 // Monta legenda do gráfico principal
@@ -66,11 +67,17 @@ trafegoChart = new Chart(ctx, {
             x: { stacked: true, title: { display: true, text: 'Clientes' } },
             y: { stacked: true, title: { display: true, text: 'Bytes' }, beginAtZero: true }
         },
-        onClick: (evt, activeEls) => {
+        onClick: async (evt, activeEls) => {
             if (activeEls.length > 0) {
                 const idx = activeEls[0].index;
                 const clientIp = trafegoChart.data.meta[idx]?.ip;
-                if(clientIp) abrirDrilldown(clientIp);
+                if(clientIp) {
+                    try {
+                        await abrirDrilldown(clientIp);
+                    } catch(err) {
+                        alert("Nenhum tráfego registrado para este IP na janela atual.");
+                    }
+                }
             }
         }
     }
@@ -109,18 +116,15 @@ async function abrirDrilldown(clientIp) {
 
         let labels = json.protocols ? Object.keys(json.protocols) : [];
         let values = json.protocols ? Object.values(json.protocols) : [];
+        let bgColors = [];
 
         if(labels.length === 0){
             labels = ["Sem tráfego"];
             values = [1];
+                document.getElementById("drill-client").innerText = `– Nenhum tráfego de ${clientIp} registrado nesta janela`;
+                bgColors = ['rgba(200,200,200,0.7)'];
         }
-
-        // Dummy slices para visualização se houver apenas 1 protocolo
-        if(labels.length === 1){
-            const dummyProtos = Object.keys(protocolColors).filter(p => p !== labels[0]);
-            labels = labels.concat(dummyProtos);
-            values = values.concat(dummyProtos.map(()=>0.01));
-        }
+         
 
         if(drillChart) drillChart.destroy();
 
@@ -128,7 +132,7 @@ async function abrirDrilldown(clientIp) {
             type: 'pie',
             data: { labels, datasets:[{
                 data: values,
-                backgroundColor: labels.map(l => protocolColors[l] || 'rgba(200,200,200,0.6)'),
+                backgroundColor: bgColors.length ? bgColors : labels.map(l => protocolColors[l] || 'rgba(200,200,200,0.6)'),
                 borderColor: 'rgba(0,0,0,0.3)',
                 borderWidth: 1
             }]},
@@ -150,12 +154,14 @@ async function abrirDrilldown(clientIp) {
         // Legenda do drilldown
         const legend = document.getElementById("protocol-legend");
         legend.innerHTML = "";
-        Object.keys(json.protocols || {}).forEach(proto => {
-            const desc = protocolDescriptions[proto] || "Sem descrição disponível.";
-            const item = document.createElement("p");
-            item.innerHTML = `<strong>${proto}:</strong> ${desc}`;
-            legend.appendChild(item);
-        });
+const legendKeys = labels.length === 1 && labels[0] === "Sem tráfego" ? ["Sem tráfego"] : Object.keys(json.protocols || {});
+legendKeys.forEach(proto => {
+    const desc = protocolDescriptions[proto] || "Sem descrição disponível.";
+    const item = document.createElement("p");
+    item.innerHTML = `<strong>${proto}:</strong> ${desc}`;
+    legend.appendChild(item);
+});
+
 
     } catch(err) {
         console.error("Erro drilldown:", err);
