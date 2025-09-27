@@ -48,6 +48,7 @@ export SERVER_IP=192.168.0.xxx
 export INTERFACE=eth0
 uvicorn main:app --reload --host 0.0.0.0 --port 8001
 ```
+> ⚠️ Substitua 192.168.0.xxx pelo IP da sua máquina na rede local e eth0 pela interface correta. Para ver as interfaces disponíveis: ip addr show.
 
 ## 🪟 Windows
 ### 1. Clonar o projeto
@@ -66,15 +67,14 @@ cd backEnd
 pip install -r requirements.txt
 ```
 ### 4. Instalar WinPcap/Npcap
-```bash
-https://npcap.com/
-```
+(https://npcap.com/)
 ### 5. Rodar o back-end
 ```bash
 set SERVER_IP=192.168.0.xxx
 set INTERFACE=Ethernet
 uvicorn main:app --reload --host 0.0.0.0 --port 8001
 ```
+> ⚠️ Se usar setx, será necessário abrir um novo terminal para que as variáveis apareçam na sessão atual.
 
 ## 🔎 Testando com ICMP e UDP
 ### Linux
@@ -96,6 +96,23 @@ sudo nping --udp -p 53 8.8.8.8
 ```bash
 nping --udp -p 53 8.8.8.8
 ```
+
+## 🔍 Como descobrir o IP da máquina e o nome da interface (Linux / Windows)
+> Abaixo há um bloco com comandos úteis que você pode incluir no checklist antes de executar o 
+> backend — mostra como localizar o IP que deve ser usado em SERVER_IP e o nome da interface (ex.: wlx..., eth0, Wi‑Fi, Ethernet).
+
+### Linux
+- Mostrar todas as interfaces e IPs:
+  ```bash
+  ip addr show
+  # ou abreviado
+  ip a
+  ```
+### Windows 
+- No Prompt (cmd) — mostra adaptadores e IPs:
+  ```bash
+  ipconfig /all
+  ```
 
 ## 📌 Observações
 
