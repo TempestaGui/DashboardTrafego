@@ -7,8 +7,8 @@ import pyshark
 import os
 
 # CONFIG — ajuste antes de rodar
-SERVER_IP = "192.168.0.132"       # seu IP real
-INTERFACE = "wlxd03745886595"
+SERVER_IP = os.getenv("SERVER_IP", "127.0.0.1") 
+INTERFACE = os.getenv("INTERFACE", "eth0")
 WINDOW_SECONDS = 5
 MAX_WINDOWS = 36  # guarda últimos 3 minutos (36 * 5s)
 
