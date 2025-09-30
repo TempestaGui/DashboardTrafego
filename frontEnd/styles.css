@@ -76,3 +76,55 @@ header {
     z-index: 999;     
     padding: 1rem;    
 }
+
+.menu {
+    position: relative;
+    display: flex;
+    justify-content: end;
+}
+
+.menu-trigger button {
+    background-color: #3d5877;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.menu-trigger button:hover {
+    background-color: #4a688d;
+}
+
+.menu-menu {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    list-style: none;
+    min-width: 150px;
+    overflow: hidden;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.menu[data-aberto="true"] .menu-menu {
+    display: block;
+}
+
+.menu-menu li a {
+    display: block;
+    padding: 10px 16px;
+    color: #364f6b;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.menu-menu li a:hover {
+    background-color: #e0f7f7;
+}

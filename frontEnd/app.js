@@ -176,3 +176,12 @@ function fecharDrilldown(){
         drillChart = null;
     }
 }
+
+const menu = document.getElementById("menu");
+const trigger = document.getElementById("menu-trigger");
+
+trigger.addEventListener("click", () => {
+    const aberto = menu.getAttribute("data-aberto") === "true";
+    menu.setAttribute("data-aberto", !aberto);
+});
+
