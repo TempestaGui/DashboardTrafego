@@ -46,7 +46,8 @@ newgrp wireshark
 ```bash
 export SERVER_IP=192.168.0.xxx
 export INTERFACE=eth0
-uvicorn main:app --reload --host 0.0.0.0 --port 8001
+# Dentro do venv ativado
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8001
 ```
 > ⚠️ Substitua 192.168.0.xxx pelo IP da sua máquina na rede local e eth0 pela interface correta. Para ver as interfaces disponíveis: ip addr show.
 
@@ -72,7 +73,8 @@ pip install -r requirements.txt
 ```bash
 set SERVER_IP=192.168.0.xxx
 set INTERFACE=Ethernet
-uvicorn main:app --reload --host 0.0.0.0 --port 8001
+# Dentro do venv ativado
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8001
 ```
 > ⚠️ Se usar setx, será necessário abrir um novo terminal para que as variáveis apareçam na sessão atual.
 
