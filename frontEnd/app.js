@@ -1,10 +1,10 @@
-// Canvas e contexto
+// Referências aos elementos canvas
 const ctx = document.getElementById('trafegoChart').getContext('2d');
 const drillCtx = document.getElementById('drillChart').getContext('2d');
 
 let trafegoChart, drillChart;
 
-// Paleta de cores por protocolo
+// Cores associadas a protocolos
 const protocolColors = {
     TCP: 'rgba(54, 162, 235, 0.7)',
     UDP: 'rgba(255, 206, 86, 0.7)',
@@ -12,7 +12,7 @@ const protocolColors = {
     OTHER: 'rgba(153, 102, 255, 0.7)'
 };
 
-// Descrição dos protocolos
+// Descrições detalhadas de cada protocolo
 const protocolDescriptions = {
     TCP: "Transmission Control Protocol – garante entrega confiável e ordenada.",
     UDP: "User Datagram Protocol – mais rápido, sem confirmação de entrega.",
@@ -24,14 +24,14 @@ const protocolDescriptions = {
     ["Sem tráfego"]: "Nenhum tráfego registrado nesta janela de tempo."
 };
 
-// Monta legenda do gráfico principal
+// Dica abaixo do gráfico principal
 const legendGrafico = document.getElementById("legend");
 legendGrafico.innerHTML = "";
 const desc = document.createElement("p");
-desc.textContent = " 💡 Aperte em uma das colunas para visualizar o DrillDown";
+desc.textContent = " 💡 Dica: Aperte em uma das colunas para visualizar o DrillDown";
 legendGrafico.appendChild(desc);
 
-// Helper para formatar bytes
+// Conversão de bytes para unidades legíveis
 function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     let k = 1024;
@@ -40,13 +40,17 @@ function formatBytes(bytes) {
     return (bytes / Math.pow(k, i)).toFixed(1) + ' ' + sizes[i - 1];
 }
 
-// Cria gráfico principal (barras empilhadas)
+// Gráfico principal de tráfego por cliente
 trafegoChart = new Chart(ctx, {
     type: 'bar',
-    data: { labels: [], datasets: [
-        { label: 'Entrada (bytes)', data: [], stack: 'Stack 0', backgroundColor: 'rgba(54, 162, 235, 0.6)', borderColor: 'rgb(54, 162, 235)', borderWidth: 1 },
-        { label: 'Saída (bytes)', data: [], stack: 'Stack 0', backgroundColor: 'rgba(255, 159, 64, 0.6)', borderColor: 'rgb(255, 159, 64)', borderWidth: 1 }
-    ], meta: [] },
+    data: { 
+        labels: [], 
+        datasets: [
+            { label: 'Entrada (bytes)', data: [], stack: 'Stack 0', backgroundColor: 'rgba(54, 162, 235, 0.6)', borderColor: 'rgb(54, 162, 235)', borderWidth: 1 },
+            { label: 'Saída (bytes)', data: [], stack: 'Stack 0', backgroundColor: 'rgba(255, 159, 64, 0.6)', borderColor: 'rgb(255, 159, 64)', borderWidth: 1 }
+        ], 
+        meta: [] 
+    },
     options: {
         responsive: true,
         plugins: {
@@ -67,6 +71,7 @@ trafegoChart = new Chart(ctx, {
             x: { stacked: true, title: { display: true, text: 'Clientes' } },
             y: { stacked: true, title: { display: true, text: 'Bytes' }, beginAtZero: true }
         },
+        // Clique em uma barra → abre drilldown
         onClick: async (evt, activeEls) => {
             if (activeEls.length > 0) {
                 const idx = activeEls[0].index;
@@ -83,7 +88,7 @@ trafegoChart = new Chart(ctx, {
     }
 });
 
-// Atualiza gráfico principal a cada 5s
+// Atualização periódica do gráfico principal
 async function atualizarGrafico() {
     try {
         const res = await fetch('http://127.0.0.1:8001/trafego/current');
@@ -104,7 +109,7 @@ async function atualizarGrafico() {
 }
 setInterval(atualizarGrafico, 5000);
 
-// Drilldown: gráficos de protocolo por cliente
+// Drilldown: protocolos de um cliente
 async function abrirDrilldown(clientIp) {
     try {
         const res = await fetch(`http://127.0.0.1:8001/trafego/drilldown/${clientIp}`);
@@ -121,21 +126,23 @@ async function abrirDrilldown(clientIp) {
         if(labels.length === 0){
             labels = ["Sem tráfego"];
             values = [1];
-                document.getElementById("drill-client").innerText = `– Nenhum tráfego de ${clientIp} registrado nesta janela`;
-                bgColors = ['rgba(200,200,200,0.7)'];
+            document.getElementById("drill-client").innerText = `– Nenhum tráfego de ${clientIp} registrado nesta janela`;
+            bgColors = ['rgba(200,200,200,0.7)'];
         }
-         
 
         if(drillChart) drillChart.destroy();
 
         drillChart = new Chart(drillCtx, {
             type: 'pie',
-            data: { labels, datasets:[{
-                data: values,
-                backgroundColor: bgColors.length ? bgColors : labels.map(l => protocolColors[l] || 'rgba(200,200,200,0.6)'),
-                borderColor: 'rgba(0,0,0,0.3)',
-                borderWidth: 1
-            }]},
+            data: { 
+                labels, 
+                datasets:[{
+                    data: values,
+                    backgroundColor: bgColors.length ? bgColors : labels.map(l => protocolColors[l] || 'rgba(200,200,200,0.6)'),
+                    borderColor: 'rgba(0,0,0,0.3)',
+                    borderWidth: 1
+                }]
+            },
             options: {
                 responsive: true,
                 plugins: {
@@ -151,24 +158,23 @@ async function abrirDrilldown(clientIp) {
             }
         });
 
-        // Legenda do drilldown
+        // Legenda textual do drilldown
         const legend = document.getElementById("protocol-legend");
         legend.innerHTML = "";
-const legendKeys = labels.length === 1 && labels[0] === "Sem tráfego" ? ["Sem tráfego"] : Object.keys(json.protocols || {});
-legendKeys.forEach(proto => {
-    const desc = protocolDescriptions[proto] || "Sem descrição disponível.";
-    const item = document.createElement("p");
-    item.innerHTML = `<strong>${proto}:</strong> ${desc}`;
-    legend.appendChild(item);
-});
-
+        const legendKeys = labels.length === 1 && labels[0] === "Sem tráfego" ? ["Sem tráfego"] : Object.keys(json.protocols || {});
+        legendKeys.forEach(proto => {
+            const desc = protocolDescriptions[proto] || "Sem descrição disponível.";
+            const item = document.createElement("p");
+            item.innerHTML = `<strong>${proto}:</strong> ${desc}`;
+            legend.appendChild(item);
+        });
 
     } catch(err) {
         console.error("Erro drilldown:", err);
     }
 }
 
-// Fechar drilldown
+// Fecha a seção de drilldown
 function fecharDrilldown(){
     document.getElementById("drilldown").classList.add("hidden");
     if(drillChart){
@@ -177,6 +183,7 @@ function fecharDrilldown(){
     }
 }
 
+// Controle do menu de integrantes
 const menu = document.getElementById("menu");
 const trigger = document.getElementById("menu-trigger");
 
@@ -184,4 +191,3 @@ trigger.addEventListener("click", () => {
     const aberto = menu.getAttribute("data-aberto") === "true";
     menu.setAttribute("data-aberto", !aberto);
 });
-
