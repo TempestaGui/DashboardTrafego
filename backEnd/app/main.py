@@ -1,3 +1,8 @@
+# API com FastAPI:
+# - habilita CORS (origens abertas para dev)
+# - inclui rotas de tráfego
+# - inicia threads de captura em background
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.controllers.trafego_controller import router as trafego_router
