@@ -1,3 +1,6 @@
+# Identifica protocolo do pacote:
+# - retorna TCP, UDP, ICMP ou OTHER
+
 def proto_of_packet(pkt):
     if hasattr(pkt, "tcp"): return "TCP"
     if hasattr(pkt, "udp"): return "UDP"
