@@ -1,5 +1,6 @@
 import threading, time
 import pyshark
+import asyncio
 import app.models.trafego as trafego
 from app.utils.protocols import proto_of_packet
 from app.config import SERVER_IP, INTERFACE, WINDOW_SECONDS
@@ -43,17 +44,21 @@ def window_rotator():
 
 
 def capture_loop():
-    trafego._first_window_ready.wait()  # corrigido
+    trafego._first_window_ready.wait()
     bpf = f'host {SERVER_IP}'
     while True:
         try:
+            # cria um event loop para esta thread
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+
             cap = pyshark.LiveCapture(interface=INTERFACE, bpf_filter=bpf)
             for pkt in cap.sniff_continuously():
                 process_packet(pkt)
+
         except Exception as e:
             print("Capture erro:", e)
             time.sleep(2)
-
 
 def start_capture_threads():
     threading.Thread(target=window_rotator, daemon=True).start()
