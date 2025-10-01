@@ -1,3 +1,11 @@
+#criando endpoits para Expor dados capturados do trafego de rede
+# - router: Cria um router para o módulo de tráfego, prefixando todos os endpoints com /trafego.
+# - trafego_current(): retorna o trafego da janela atual(ultimos window_second), se nao existir, devolve janela vazia em vez de erro
+#   constroi uma lista comip do cliente, hostname, bytes recebidos (in), enviados (out) e protocolos usados e ordena os clientes por volume (in + out)
+# - trafego_history(): retorna o historivo de janelas ja processado, cada janela contem timeStap(ts) e lista de clientes com trafego (in/out/protocolos)
+# - trafego_drillDown(): da um foco em um ip especifico na janela atual, retornando o trafego detalhado de entrada/saida + protocolo so para esse cliente
+
+
 from fastapi import APIRouter
 import app.models.trafego as trafego
 from app.services.dns_service import get_hostname
