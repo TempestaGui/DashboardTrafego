@@ -13,7 +13,9 @@ Ele possui dois componentes principais:
 - **Python 3.9+**  
 - **pip** (gerenciador de pacotes do Python)  
 - **git** (para clonar o projeto)  
-
+- **wireshark** (https://www.wireshark.org/download.html)
+  > baixa e marca a opção de instalar TShark, depois reinicia o computador pras variáveis de ambiente serem aplicadas
+  
 Opcional (mas recomendado):  
 - **Wireshark/tshark** ou permissões de captura de pacotes (`libpcap` no Linux).  
 - **Npcap (Windows)** ou **libpcap (Linux)** para captura de pacotes.  
