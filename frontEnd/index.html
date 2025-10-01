@@ -1,49 +1,58 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard de Tráfego</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <header>
-        <h1>Dashboard de Tráfego</h1>
-        <div id="menu" class="menu" data-aberto="false">
-            <span id="menu-trigger" class="menu-trigger">
-                <button>Alunos 🧑‍🎓:</button>
-            </span>
-            <ul class="menu-menu">
-                <li><a href="https://www.linkedin.com/in/guilherme-tempesta-82b235286/">Guilherme Tempesta (2312130221)</a></li>
-                <li><a href="https://www.linkedin.com/in/gabrielle-rodrigues-937673349/"> Gabrielle Rodrigues</a></li>
-                <li><a href="https://www.linkedin.com/in/daviizn/">Davi Serra</a></li>
-                <li><a href="https://www.linkedin.com/in/dvdlbo/">David Lopes</a></li>
-                <li><a href="https://www.linkedin.com/in/gabriel-fernandes-feitosa-0b172a34a/">Gabriel Fernandes</a></li>
-                <li><a >Leonardo Dias</a></li>
-            </ul>
-        </div>
-    </header>
+<html lang="pt-BR"> <!-- Define o documento como HTML5 e o idioma principal como português do Brasil -->
+    <head>
+        <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8, evitando problemas com acentuação -->
+        <title>Dashboard de Tráfego</title> <!-- Título exibido na aba do navegador -->
+        <link rel="stylesheet" href="styles.css"> <!-- Importa o arquivo de estilos CSS externo -->
+    </head>
+    <body>
+        <header>
+            <h1><b>Dashboard de Tráfego</b></h1> <!-- Cabeçalho principal da página -->
 
-<main class="dashboard">
-    <section class="chart-container">
-        <canvas id="trafegoChart"></canvas>
-        <div id="legend" class="legend"></div>
-    </section>
-    <section style="max-width: 100px;" id="drilldown" class="hidden drill-container">
-    <h2>Detalhes por protocolo (<span id="drill-client"></span>)</h2>
-    <canvas id="drillChart"></canvas>
-    <div id="protocol-legend" class="legend"></div>
-    <button onclick="fecharDrilldown()" class="close-btn">Fechar</button>
-</section>
-</main>
-    <script src="app.js"></script>
-</body>
-<footer class="dashboard-footer" style="margin-top: 1rem; text-align: center; font-size: 0.9rem; background-color: 364f6b;">
-    <span style="cursor: help;" title="Clique para saber mais sobre como funciona o tráfego de rede.">
-        💡 
-        <a href="https://www.fortinet.com/br/resources/cyberglossary/network-traffic" target="_blank" style="text-decoration: none; color: #ffffff; font-weight: bold;">
-            Saiba mais
-        </a>
-    </span>
-</footer>
+            <!-- Menu com a lista de integrantes do projeto -->
+            <div id="menu" class="menu" data-aberto="false">
+                <span id="menu-trigger" class="menu-trigger">
+                    <button><b>Integrantes</b></button> <!-- Botão que abre/fecha o menu -->
+                </span>
+
+                <ul class="menu-menu"> <!-- Lista de integrantes com links para os perfis -->
+                    <li><a href="https://www.linkedin.com/in/daviizn/">Davi Serra Bezerra <b>(2312130031)</b></a></li>
+                    <li><a href="https://www.linkedin.com/in/dvdlbo/">David Lopes Bezerra de Oliveira <b>(2312130068)</b></a></li>
+                    <li><a href="https://www.linkedin.com/in/gabriel-fernandes-feitosa-0b172a34a/">Gabriel Fernandes Feitosa <b>(2312130103)</b></a></li>
+                    <li><a href="https://www.linkedin.com/in/gabrielle-rodrigues-937673349/">Gabrielle Arruda Rodrigues <b>(2312130129)</b></a></li>
+                    <li><a href="https://www.linkedin.com/in/guilherme-tempesta-82b235286/">Guilherme Tempesta Francisco <b>(2312130221)</b></a></li>
+                    <li><a>Leonardo Dias dos Passos Brito <b>(2312130234)</b></a></li> <!-- Sem link definido -->
+                </ul>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <!-- Primeira seção com o gráfico principal de tráfego -->
+            <section class="chart-container">
+                <canvas id="trafegoChart"></canvas> <!-- Área onde o gráfico do Chart.js será renderizado -->
+                <div id="legend" class="legend"></div> <!-- Área para exibir a legenda personalizada -->
+            </section>
+
+            <!-- Seção para drilldown (detalhamento por protocolo) -->
+            <section style="max-width: 100px;" id="drilldown" class="hidden drill-container">
+                <h2>Detalhes por protocolo (<span id="drill-client"></span>)</h2> <!-- O nome do cliente é dinâmico -->
+                <canvas id="drillChart"></canvas> <!-- Gráfico de detalhamento -->
+                <div id="protocol-legend" class="legend"></div> <!-- Legenda do gráfico de protocolos -->
+                <button onclick="fecharDrilldown()" class="close-btn">Fechar</button> <!-- Botão para fechar o drilldown -->
+            </section>
+        </main>
+
+        <!-- Bibliotecas JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Importa o Chart.js para gráficos -->
+        <script src="app.js"></script> <!-- Script local com a lógica da dashboard -->
+    </body>
+
+    <!-- Rodapé da página -->
+    <footer class="dashboard-footer" style="margin-top: 1rem; text-align: center; font-size: 0.9rem; background-color: 364f6b;">
+        <span style="cursor: help;" title="Clique para saber mais sobre como funciona o tráfego de rede.">
+            <a href="https://docs.google.com/document/d/1pi-3yL1y-T4_V8rxiVd0CRW4lbBIzwKEsxnOVYlnKOg/edit?usp=sharing" target="_blank" style="text-decoration: none; color: #ffffff; font-weight: bold;">
+                Saiba Mais
+            </a>
+        </span>
+    </footer>
 </html>
