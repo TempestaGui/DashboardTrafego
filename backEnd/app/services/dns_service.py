@@ -1,3 +1,8 @@
+# Resolve IP para hostname com cache:
+# - verifica se já existe no _dns_cache e TTL ainda válido
+# - senão, faz reverse DNS (gethostbyaddr)
+# - salva no cache com tempo de expiração
+
 import socket, time
 import app.models.trafego as trafego
 from app.config import DNS_TTL
