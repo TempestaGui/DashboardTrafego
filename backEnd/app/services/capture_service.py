@@ -1,3 +1,9 @@
+# Captura e organiza tráfego de rede:
+# - process_packet(): processa pacotes, identifica IPs/protocolo e soma tráfego (in/out) na janela atual
+# - window_rotator(): cria nova janela de dados a cada WINDOW_SECONDS
+# - capture_loop(): inicia captura ao vivo com pyshark filtrando o SERVER_IP
+# - start_capture_threads(): roda rotacionador e captura em threads paralelas
+
 import threading, time
 import pyshark
 import asyncio
