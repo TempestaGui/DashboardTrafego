@@ -73,12 +73,20 @@ pip install -r requirements.txt
 (https://npcap.com/)
 ### 5. Rodar o back-end
 ```bash
+> caso esteja rodando em um cmd rode esse comando
 set SERVER_IP=192.168.0.xxx
 set INTERFACE=Ethernet
+
+> caso esteja rodando e um powershell rode esse comando
+$env:SERVER_IP="192.168.0.xxx"
+$env:INTERFACE="Ethernet"
+```
+
+```bash
 # Dentro do venv ativado
 python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
-```
 > ⚠️ Se usar setx, será necessário abrir um novo terminal para que as variáveis apareçam na sessão atual.
+```
 
 ## 🔎 Testando com ICMP e UDP
 ### Linux
