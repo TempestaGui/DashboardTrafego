@@ -1,0 +1,20 @@
+repos:
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.6
+    hooks:
+      - id: bandit
+        args:
+          - "-r"
+          - "."
+          - "--exclude"
+          - "./tests"
+          - "--exclude"
+          - "./venv"
+          - "--severity-level"
+          - "medium"
+          - "-f"
+          - "json"
+          - "-o"
+          - "bandit-report.json"
+          - "-v"
+        pass_filenames: false
