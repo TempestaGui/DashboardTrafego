@@ -5,11 +5,9 @@ repos:
       - id: bandit
         args:
           - "-r"
-          - "."
+          - "backEnd/app"
           - "--exclude"
-          - "./tests"
-          - "--exclude"
-          - "./venv"
+          - "../venv,../tests"
           - "--severity-level"
           - "medium"
           - "-f"
