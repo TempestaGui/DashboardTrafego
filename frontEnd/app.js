@@ -1,11 +1,13 @@
-// Referências aos elementos canvas 
+// Referências aos elementos canvas - obtém contextos 2D para renderização dos gráficos
 const ctx = document.getElementById('trafegoChart')?.getContext('2d');
 const drillCtx = document.getElementById('drillChart')?.getContext('2d');
 
+// Verificação de segurança - garante que os canvas existem no DOM
 if (!ctx || !drillCtx) {
     console.error("Erro: elementos canvas não encontrados!");
 }
 
+// Variáveis globais para armazenar instâncias dos gráficos Chart.js
 let trafegoChart, drillChart;
 
 // Cores associadas a protocolos
@@ -39,7 +41,19 @@ if (legendGrafico) {
     console.warn("Elemento 'legend' não encontrado");
 }
 
-// Conversão de bytes para unidades legíveis
+/**
+ * Converte valores em bytes para unidades legíveis (KB, MB, GB, TB)
+ * 
+ * @param {number} bytes - Valor em bytes para ser convertido
+ * @returns {string} Valor formatado com unidade apropriada (ex: "1.5 MB")
+ * 
+ * Funcionalidade:
+ * - Valida se o input é um número válido
+ * - Para valores < 1024, retorna em bytes
+ * - Calcula automaticamente a unidade apropriada (KB/MB/GB/TB)
+ * - Retorna valor formatado com 1 casa decimal
+ * - Em caso de erro, retorna "0 B" como fallback
+ */
 function formatBytes(bytes) {
     try {
         if (typeof bytes !== "number" || isNaN(bytes)) return "0 B";
@@ -54,7 +68,22 @@ function formatBytes(bytes) {
     }
 }
 
-// Função para inicializar gráfico principal
+/**
+ * Inicializa o gráfico principal de tráfego usando Chart.js
+ * 
+ * Funcionalidade:
+ * - Cria gráfico de barras empilhadas para mostrar tráfego de entrada/saída
+ * - Configura tooltips personalizados com formatação de bytes
+ * - Implementa interatividade (clique nas barras abre drilldown)
+ * - Define escalas e responsividade
+ * - Armazena metadados (IP e hostname) para cada cliente
+ * 
+ * Estrutura dos dados:
+ * - Labels: nomes dos clientes (hostname ou IP)
+ * - Dataset 1: Bytes de entrada (azul)
+ * - Dataset 2: Bytes de saída (laranja)
+ * - Meta: informações adicionais (IP, hostname) para tooltips e drilldown
+ */
 function criarGraficoPrincipal() {
     try {
         trafegoChart = new Chart(ctx, {
@@ -109,7 +138,24 @@ function criarGraficoPrincipal() {
     }
 }
 
-// Atualização periódica do gráfico principal
+/**
+ * Atualiza os dados do gráfico principal consultando a API do backend
+ * 
+ * Funcionalidade:
+ * - Faz requisição HTTP para endpoint /trafego/current
+ * - Processa resposta JSON e extrai dados de tráfego
+ * - Seleciona top 10 clientes com maior tráfego
+ * - Atualiza labels, datasets e metadados do gráfico
+ * - Trata erros de rede e API
+ * - Garante que o gráfico existe antes de atualizar
+ * 
+ * Fluxo de dados:
+ * 1. Fetch da API -> JSON com dados de clientes
+ * 2. Slice dos top 10 -> Array limitado
+ * 3. Map para labels -> Hostnames ou IPs
+ * 4. Map para datasets -> Bytes in/out separados
+ * 5. Update do Chart.js -> Renderização visual
+ */
 async function atualizarGrafico() {
     try {
         const res = await fetch('http://127.0.0.1:8001/trafego/current');
@@ -130,9 +176,27 @@ async function atualizarGrafico() {
         console.error("Erro ao atualizar gráfico:", err);
     }
 }
+// Configura atualização automática do gráfico a cada 5 segundos
 setInterval(atualizarGrafico, 5000);
 
-// Drilldown: protocolos de um cliente
+/**
+ * Abre a visualização detalhada (drilldown) dos protocolos de um cliente específico
+ * 
+ * @param {string} clientIp - Endereço IP do cliente para análise detalhada
+ * 
+ * Funcionalidade:
+ * - Consulta API /trafego/drilldown/{clientIp} para dados específicos
+ * - Exibe seção drilldown (remove classe 'hidden')
+ * - Cria gráfico de pizza mostrando distribuição de protocolos
+ * - Gera legenda explicativa para cada protocolo
+ * - Trata caso especial de "sem tráfego"
+ * - Destrói gráfico anterior se existir (evita sobreposição)
+ * 
+ * Estados tratados:
+ * - Cliente com tráfego: gráfico colorido com protocolos reais
+ * - Cliente sem tráfego: gráfico cinza com mensagem informativa
+ * - Erro de API: alerta ao usuário e log de erro
+ */
 async function abrirDrilldown(clientIp) {
     try {
         const res = await fetch(`http://127.0.0.1:8001/trafego/drilldown/${clientIp}`);
@@ -203,7 +267,21 @@ async function abrirDrilldown(clientIp) {
     }
 }
 
-// Fecha a seção de drilldown
+/**
+ * Fecha a visualização de drilldown e limpa recursos associados
+ * 
+ * Funcionalidade:
+ * - Oculta seção drilldown (adiciona classe 'hidden')
+ * - Destrói instância do gráfico Chart.js para liberar memória
+ * - Define variável drillChart como null
+ * - Trata erros durante o processo de fechamento
+ * 
+ * Limpeza de recursos:
+ * - Remove elementos visuais do DOM
+ * - Libera memória ocupada pelo gráfico Chart.js
+ * - Previne vazamentos de memória em uso prolongado
+ * - Prepara interface para próximo drilldown
+ */
 function fecharDrilldown() {
     try {
         const drillSection = document.getElementById("drilldown");
@@ -234,6 +312,6 @@ try {
     console.error("Erro configurando menu:", err);
 }
 
-// Inicializa gráfico ao carregar página
+// Inicialização do dashboard ao carregar a página
 criarGraficoPrincipal();
 atualizarGrafico();

@@ -4,25 +4,33 @@
         <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8, evitando problemas com acentuação -->
         <title>Dashboard de Tráfego</title> <!-- Título exibido na aba do navegador -->
         <link rel="stylesheet" href="styles.css"> <!-- Importa o arquivo de estilos CSS externo -->
+        <link rel="icon" type="image/png" href="./assets/icone-trafego.png"> <!-- Ícone da aba do navegador -->
     </head>
     <body>
         <header>
-            <h1><b>Dashboard de Tráfego</b></h1> <!-- Cabeçalho principal da página -->
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="header-logo">
+                        <img src="./assets/icone-trafego.png" alt="Ícone de Tráfego" style="height: 40px; width: 40px;"> <!-- Ícone do dashboard -->
+                    </div>
+                    <h1><b>Dashboard de Tráfego</b></h1> <!-- Cabeçalho principal da página -->
+                </div>
 
-            <!-- Menu com a lista de integrantes do projeto -->
-            <div id="menu" class="menu" data-aberto="false">
-                <span id="menu-trigger" class="menu-trigger">
-                    <button><b>Integrantes</b></button> <!-- Botão que abre/fecha o menu -->
-                </span>
+                <!-- Menu com a lista de integrantes do projeto -->
+                <div id="menu" class="menu" data-aberto="false">
+                    <span id="menu-trigger" class="menu-trigger">
+                        <button><b>Integrantes</b></button> <!-- Botão que abre/fecha o menu -->
+                    </span>
 
-                <ul class="menu-menu"> <!-- Lista de integrantes com links para os perfis -->
-                    <li><a href="https://www.linkedin.com/in/daviizn/">Davi Serra Bezerra <b>(2312130031)</b></a></li>
-                    <li><a href="https://www.linkedin.com/in/dvdlbo/">David Lopes Bezerra de Oliveira <b>(2312130068)</b></a></li>
-                    <li><a href="https://www.linkedin.com/in/gabriel-fernandes-feitosa-0b172a34a/">Gabriel Fernandes Feitosa <b>(2312130103)</b></a></li>
-                    <li><a href="https://www.linkedin.com/in/gabrielle-rodrigues-937673349/">Gabrielle Arruda Rodrigues <b>(2312130129)</b></a></li>
-                    <li><a href="https://www.linkedin.com/in/guilherme-tempesta-82b235286/">Guilherme Tempesta Francisco <b>(2312130221)</b></a></li>
-                    <li><a>Leonardo Dias dos Passos Brito <b>(2312130234)</b></a></li> <!-- Sem link definido -->
-                </ul>
+                    <ul class="menu-menu"> <!-- Lista de integrantes com links para os perfis -->
+                        <li><a href="https://www.linkedin.com/in/daviizn/">Davi Serra Bezerra <b>(2312130031)</b></a></li>
+                        <li><a href="https://www.linkedin.com/in/dvdlbo/">David Lopes Bezerra de Oliveira <b>(2312130068)</b></a></li>
+                        <li><a href="https://www.linkedin.com/in/gabriel-fernandes-feitosa-0b172a34a/">Gabriel Fernandes Feitosa <b>(2312130103)</b></a></li>
+                        <li><a href="https://www.linkedin.com/in/gabrielle-rodrigues-937673349/">Gabrielle Arruda Rodrigues <b>(2312130129)</b></a></li>
+                        <li><a href="https://www.linkedin.com/in/guilherme-tempesta-82b235286/">Guilherme Tempesta Francisco <b>(2312130221)</b></a></li>
+                        <li><a>Leonardo Dias dos Passos Brito <b>(2312130234)</b></a></li> <!-- Sem link definido -->
+                    </ul>
+                </div>
             </div>
         </header>
 
@@ -48,9 +56,9 @@
     </body>
 
     <!-- Rodapé da página -->
-    <footer class="dashboard-footer" style="margin-top: 1rem; text-align: center; font-size: 0.9rem; background-color: 364f6b;">
+    <footer class="dashboard-footer" style="margin-top: 1rem; text-align: center; font-size: 1.2rem; background-color: 364f6b;">
         <span style="cursor: help;" title="Clique para saber mais sobre como funciona o tráfego de rede.">
-            <a href="https://docs.google.com/document/d/1pi-3yL1y-T4_V8rxiVd0CRW4lbBIzwKEsxnOVYlnKOg/edit?usp=sharing" target="_blank" style="text-decoration: none; color: #ffffff; font-weight: bold;">
+            <a href="./assets/Relatório Técnico - Dashboard.pdf" target="_blank" style="text-decoration: none; color: #ffffff; font-weight: bold;">
                 Saiba Mais
             </a>
         </span>
