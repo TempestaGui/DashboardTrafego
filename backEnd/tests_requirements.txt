@@ -1,0 +1,17 @@
+# Testes e mocks
+pytest==7.4.0
+pytest-mock==3.10.0
+httpx==0.24.1
+
+# ----------------------------------------------
+# DEPENDÊNCIAS DE SEGURANÇA E DESENVOLVIMENTO (Dev Tools)
+# ----------------------------------------------
+
+# Teste Estático de Segurança (SAST)
+bandit==1.8.6
+
+# Análise de Vulnerabilidades de Dependências (SCA)
+safety==3.6.2
+
+# Gerenciador de Hooks Git (Para automação local)
+pre-commit==3.7.1
