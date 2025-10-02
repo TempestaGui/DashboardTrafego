@@ -38,13 +38,50 @@ source venv/bin/activate
 ```bash
 cd backEnd
 pip install -r requirements.txt
+pip install -r tests_requirements.txt
 ```
-### 4. Dar permissão para captura de pacotes
+### 4. Testes e Validação
+
+Após instalar as dependências, é importante garantir a qualidade e segurança do código. Os comandos a seguir funcionam tanto no Linux quanto no Windows, desde que você esteja dentro do diretório backEnd com o ambiente virtual ativado.
+
+1. Ativar o Hook de Commit (Obrigatório)
+   
+Este comando cria o link entre a ferramenta pre-commit e o seu repositório Git. Este é o passo que garante que todas as verificações de segurança (bandit, safety) rodem automaticamente antes de cada git commit para todos os desenvolvedores.
+```bash
+# Dentro do diretório backEnd com o venv ativado
+pre-commit install
+> ⚠️ Se tiver problemas, use pre-commit install --install-hooks.
+```
+
+2. Testes de Unidade e Integração
+
+Executa todos os arquivos de teste (test_*.py) encontrados no projeto. O flag -v fornece saída detalhada (verbose).
+```bash
+# Dentro do diretório backEnd com o venv ativado
+pytest -v
+```
+3. Análise de Segurança
+   
+A. Análise de Vulnerabilidades de Dependências (SCA) com safety
+
+Verifica se as dependências do requirements.txt e tests_requirements.txt possuem vulnerabilidades conhecidas.
+```bash
+# Executar dentro do venv ativado
+safety scan -r
+```
+B. Análise Estática de Código (SAST) com bandit
+
+Escaneia o código-fonte em busca de problemas de segurança comuns, como senhas hardcoded.
+```bash
+# Rodar de forma recursiva no diretório atual
+bandit -r . --exclude ./tests,./venv
+```
+### 5. Dar permissão para captura de pacotes
 ```bash
 sudo usermod -aG wireshark $USER
 newgrp wireshark
 ```
-### 5. Rodar o back-end
+### 6. Rodar o back-end
 ```bash
 export SERVER_IP=192.168.0.xxx
 export INTERFACE=eth0
@@ -68,10 +105,47 @@ python -m venv venv
 ```bash
 cd backEnd
 pip install -r requirements.txt
+pip install -r tests_requirements.txt
 ```
-### 4. Instalar WinPcap/Npcap
+### 4. Testes e Validação
+
+Após instalar as dependências, é importante garantir a qualidade e segurança do código. Os comandos a seguir funcionam tanto no Linux quanto no Windows, desde que você esteja dentro do diretório backEnd com o ambiente virtual ativado.
+
+1. Ativar o Hook de Commit (Obrigatório)
+   
+Este comando cria o link entre a ferramenta pre-commit e o seu repositório Git. Este é o passo que garante que todas as verificações de segurança (bandit, safety) rodem automaticamente antes de cada git commit para todos os desenvolvedores.
+```bash
+# Dentro do diretório backEnd com o venv ativado
+pre-commit install
+> ⚠️ Se tiver problemas, use pre-commit install --install-hooks.
+```
+
+2. Testes de Unidade e Integração
+
+Executa todos os arquivos de teste (test_*.py) encontrados no projeto. O flag -v fornece saída detalhada (verbose).
+```bash
+# Dentro do diretório backEnd com o venv ativado
+pytest -v
+```
+3. Análise de Segurança
+   
+A. Análise de Vulnerabilidades de Dependências (SCA) com safety
+
+Verifica se as dependências do requirements.txt e tests_requirements.txt possuem vulnerabilidades conhecidas.
+```bash
+# Executar dentro do venv ativado
+safety scan -r
+```
+B. Análise Estática de Código (SAST) com bandit
+
+Escaneia o código-fonte em busca de problemas de segurança comuns, como senhas hardcoded.
+```bash
+# Rodar de forma recursiva no diretório atual
+bandit -r . --exclude ./tests,./venv
+```
+### 5. Instalar WinPcap/Npcap
 (https://npcap.com/)
-### 5. Rodar o back-end
+### 6. Rodar o back-end
 ```bash
 > caso esteja rodando em um cmd rode esse comando
 set SERVER_IP=192.168.0.xxx
