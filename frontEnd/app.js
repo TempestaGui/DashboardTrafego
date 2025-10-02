@@ -20,13 +20,13 @@ const protocolColors = {
 
 // Descrições detalhadas de cada protocolo
 const protocolDescriptions = {
-    TCP: "Transmission Control Protocol – garante entrega confiável e ordenada.",
-    UDP: "User Datagram Protocol – mais rápido, sem confirmação de entrega.",
-    ICMP: "Internet Control Message Protocol – usado para mensagens de controle (ex: ping).",
-    HTTP: "HyperText Transfer Protocol – usado para páginas web.",
-    HTTPS: "HTTP Secure – versão criptografada do HTTP.",
-    DNS: "Domain Name System – resolve nomes de domínio para endereços IP.",
-    OTHER: "Outros protocolos menos comuns.",
+    TCP: "Transmission Control Protocol – Protocolo usado para garantir entrega confiável e ordenada de dados.",
+    UDP: "User Datagram Protocol – Protocolo usado para transmissões rápidas, sem garantia de entrega.",
+    ICMP: "Internet Control Message Protocol – Protocolo usado para mensagens de controle e diagnóstico (ex: ping).",
+    HTTP: "HyperText Transfer Protocol – Protocolo usado para transferência de páginas e dados na web.",
+    HTTPS: "HTTP Secure – Protocolo usado para comunicação web segura e criptografada.",
+    DNS: "Domain Name System – Protocolo usado para traduzir nomes de domínio em endereços IP.",
+    OTHER: "Protocolos usados para outras finalidades menos comuns.",
     ["Sem tráfego"]: "Nenhum tráfego registrado nesta janela de tempo."
 };
 
