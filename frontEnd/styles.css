@@ -11,8 +11,28 @@ body {
 header {
     background: #364f6b;  
     color: white;         
-    padding: 0.1rem;
-    text-align: center;   
+    padding: 0.8rem 2rem;
+}
+
+/* Contêiner principal do cabeçalho - organiza logo/título e menu lado a lado */
+.header-content {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+/* Seção esquerda do cabeçalho - agrupa logo e título */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Título principal do dashboard */
+.header-left h1 {
+    margin: 0;
+    text-transform: uppercase;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;   
 }
 
 /* Layout do dashboard */
@@ -50,6 +70,9 @@ header {
     border-radius: 5px;
     margin-top: 10px;
     cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .close-btn:hover {
     background: #ff2e2e; 
@@ -63,11 +86,13 @@ header {
     padding: 10px;
     border-radius: 8px;
 }
+/* Parágrafos dentro da legenda */
 .legend p {
     margin: 5px 0;
 }
+/* Texto em negrito na legenda */
 .legend strong {
-    color: #364f6b; 
+    color: #364f6b;
 }
 
 /* Rodapé fixo da página */
@@ -85,6 +110,15 @@ header {
     padding: 1rem;    
 }
 
+/* Link "Saiba Mais" no rodapé */
+.dashboard-footer span a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
 /* Menu suspenso (integrantes) */
 .menu {
     position: relative;  
@@ -100,12 +134,53 @@ header {
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
+    font-size: medium;
     color: #fff;
     transition: background 0.3s;
     margin: 5px;
+    position: relative;
+    overflow: hidden;
 }
+
+/* Linha animada do botão Integrantes */
+.menu-trigger button::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #fff;         
+    transition: all 0.3s ease;     
+    transform: translateX(-50%);   
+}
+
+/* Expansão da linha no hover */
+.menu-trigger button:hover::after {
+    width: 80%;                   
+}
+
+/* Linha animada para o link "Saiba Mais" */
+.dashboard-footer span a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+/* Expansão da linha no hover do "Saiba Mais" */
+.dashboard-footer span a:hover::after {
+    width: 100%;
+}
+
+/* Mudança de cor de fundo no hover do botão */
 .menu-trigger button:hover {
-    background-color: #4a688d;
+    background-color: #4a688d;      
 }
 
 /* Lista suspensa (dropdown) */
@@ -122,6 +197,7 @@ header {
     overflow: hidden;
     z-index: 1000;
     transition: all 0.3s ease;
+    padding: 0%;
 }
 
 /* Exibe dropdown quando o atributo data-aberto for true */
@@ -136,7 +212,9 @@ header {
     color: #364f6b;
     text-decoration: none;
     transition: background 0.2s;
+    text-align: center;
 }
+/* Efeito hover nos links dos integrantes */
 .menu-menu li a:hover {
-    background-color: #e0f7f7; 
+    background-color: #e0f7f7;
 }
